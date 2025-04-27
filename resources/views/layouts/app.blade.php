@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,16 +10,13 @@
 </head>
 
 <body class="bg-gray-100">
-    <!-- Include the navbar component -->
     @include('components.navbar')
 
-    <!-- Main content -->
     <main>
         @yield('hero section')
         @yield('content section')
     </main>
 
-    <!-- Scripts -->
     @stack('scripts')
 
     <script>
@@ -30,11 +26,9 @@
 
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 10) {
-                    // Ketika di-scroll, tambahkan class fixed dan shadow
                     navbar.className =
                         'fixed top-0 left-0 right-0 bg-white shadow-md w-full h-20 z-50 transition-all duration-300';
                 } else {
-                    // Kembalikan ke class original ketika di atas
                     navbar.className = originalClasses;
                 }
             });

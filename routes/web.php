@@ -9,7 +9,6 @@ use App\Http\Controllers\PhotoboothController;
 
 // routes/web.php
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/category/{categoryId}', [HomeController::class, 'filterByCategory'])->name('category.filter');
 
 // Rute autentikasi admin
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
