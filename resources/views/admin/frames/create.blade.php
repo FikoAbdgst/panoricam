@@ -20,6 +20,10 @@
                     class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700 text-white' : '' }}">
                     <span>Dashboard</span>
                 </a>
+                <a href="{{ route('admin.categories.index') }}"
+                    class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.categories.*') ? 'bg-gray-700 text-white' : '' }}">
+                    <span>Kelola Kategori</span>
+                </a>
                 <a href="{{ route('admin.frames.index') }}"
                     class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.frames.*') ? 'bg-gray-700 text-white' : '' }}">
                     <span>Kelola Frame</span>
@@ -61,20 +65,26 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="category_id" class="block text-gray-700 text-sm font-bold mb-2">Kategori</label>
+                            <select name="category_id" id="category_id"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
                             <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Gambar
                                 Frame</label>
                             <input type="file" name="image" id="image"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 accept="image/*" required>
                             <p class="text-sm text-gray-500 mt-1">Format: JPG, PNG, GIF. Maks: 2MB</p>
-                        </div>
-
-                        <div class="mb-6">
-                            <label class="flex items-center">
-                                <input type="checkbox" name="is_active" class="form-checkbox h-5 w-5 text-blue-600"
-                                    checked>
-                                <span class="ml-2 text-gray-700">Aktif</span>
-                            </label>
                         </div>
 
                         <div class="flex items-center justify-between">

@@ -1,10 +1,11 @@
+<!-- resources/views/admin/categories/edit.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Frame - Photobooth App</title>
+    <title>Edit Kategori - Photobooth App</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -39,7 +40,7 @@
         <div class="flex-1">
             <header class="bg-white shadow">
                 <div class="py-4 px-6">
-                    <h1 class="text-2xl font-bold">Edit Frame</h1>
+                    <h1 class="text-2xl font-bold">Edit Kategori</h1>
                 </div>
             </header>
 
@@ -55,53 +56,33 @@
                 @endif
 
                 <div class="bg-white rounded-lg shadow p-6">
-                    <form action="{{ route('admin.frames.update', $frame) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('admin.categories.update', $category) }}" method="POST">
                         @csrf
                         @method('PUT')
-
                         <div class="mb-4">
-                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama Frame</label>
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama
+                                Kategori</label>
                             <input type="text" name="name" id="name"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value="{{ old('name', $frame->name) }}" required>
+                                value="{{ old('name', $category->name) }}" required>
                         </div>
 
                         <div class="mb-4">
-                            <label for="category_id" class="block text-gray-700 text-sm font-bold mb-2">Kategori</label>
-                            <select name="category_id" id="category_id"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">-- Pilih Kategori --</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('category_id', $frame->category_id) == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Frame Saat Ini</label>
-                            <img src="{{ asset('storage/' . $frame->image_path) }}" alt="{{ $frame->name }}"
-                                class="h-40 w-auto object-contain border border-gray-300 p-2 rounded-md">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Ganti Gambar Frame
-                                (opsional)</label>
-                            <input type="file" name="image" id="image"
+                            <label for="icon" class="block text-gray-700 text-sm font-bold mb-2">Icon
+                                (Emoji)</label>
+                            <input type="text" name="icon" id="icon"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                accept="image/*">
-                            <p class="text-sm text-gray-500 mt-1">Format: JPG, PNG, GIF. Maks: 2MB</p>
+                                value="{{ old('icon', $category->icon) }}" required>
+                            <p class="text-sm text-gray-500 mt-1">Masukkan emoji yang sesuai untuk kategori ini. Contoh:
+                                📷, 🎉, 👑, dll.</p>
                         </div>
 
                         <div class="flex items-center justify-between">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                Perbarui Frame
+                                Perbarui Kategori
                             </button>
-                            <a href="{{ route('admin.frames.index') }}" class="text-gray-600 hover:text-gray-800">
+                            <a href="{{ route('admin.categories.index') }}" class="text-gray-600 hover:text-gray-800">
                                 Batal
                             </a>
                         </div>

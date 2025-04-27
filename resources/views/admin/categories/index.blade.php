@@ -1,10 +1,11 @@
+<!-- resources/views/admin/categories/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Frame - Photobooth App</title>
+    <title>Kelola Kategori - Photobooth App</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -39,10 +40,10 @@
         <div class="flex-1">
             <header class="bg-white shadow">
                 <div class="py-4 px-6 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold">Kelola Frame</h1>
-                    <a href="{{ route('admin.frames.create') }}"
+                    <h1 class="text-2xl font-bold">Kelola Kategori</h1>
+                    <a href="{{ route('admin.categories.create') }}"
                         class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                        Tambah Frame Baru
+                        Tambah Kategori Baru
                     </a>
                 </div>
             </header>
@@ -66,45 +67,44 @@
                                     Nama</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Kategori</th>
+                                    Icon</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Preview</th>
+                                    Jumlah Frame</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse ($frames as $frame)
+                            @forelse ($categories as $category)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $frame->id }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ $frame->name }}</td>
+                                        {{ $category->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $frame->category ? $frame->category->name : 'Tidak Ada Kategori' }}
+                                        <span class="text-2xl">{{ $category->icon }}</span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <img src="{{ asset('storage/' . $frame->image_path) }}"
-                                            alt="{{ $frame->name }}" class="h-16 w-auto object-contain">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $category->frames->count() }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('admin.frames.edit', $frame) }}"
+                                        <a href="{{ route('admin.categories.edit', $category) }}"
                                             class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                                        <form action="{{ route('admin.frames.destroy', $frame) }}" method="POST"
-                                            class="inline-block">
+                                        <form action="{{ route('admin.categories.destroy', $category) }}"
+                                            method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus frame ini?')">Hapus</button>
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">Belum ada
-                                        frame yang ditambahkan</td>
+                                        kategori yang ditambahkan</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -21,6 +21,10 @@
                     class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700 text-white' : '' }}">
                     <span>Dashboard</span>
                 </a>
+                <a href="{{ route('admin.categories.index') }}"
+                    class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.categories.*') ? 'bg-gray-700 text-white' : '' }}">
+                    <span>Kelola Kategori</span>
+                </a>
                 <a href="{{ route('admin.frames.index') }}"
                     class="flex items-center py-3 px-4 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('admin.frames.*') ? 'bg-gray-700 text-white' : '' }}">
                     <span>Kelola Frame</span>
@@ -46,6 +50,13 @@
                     <p>Gunakan sidebar untuk menavigasi ke berbagai bagian panel admin.</p>
 
                     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-purple-100 p-4 rounded-lg">
+                            <h3 class="font-bold text-lg text-purple-800">Kelola Kategori</h3>
+                            <p class="text-purple-600">Tambah, edit, dan hapus kategori untuk frame photobooth.</p>
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="mt-2 inline-block text-purple-700 hover:text-purple-900">Kelola Sekarang →</a>
+                        </div>
+
                         <div class="bg-blue-100 p-4 rounded-lg">
                             <h3 class="font-bold text-lg text-blue-800">Kelola Frame</h3>
                             <p class="text-blue-600">Tambah, edit, dan hapus frame untuk photobooth.</p>

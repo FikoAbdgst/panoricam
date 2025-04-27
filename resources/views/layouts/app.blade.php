@@ -16,11 +16,30 @@
 
     <!-- Main content -->
     <main>
-        @yield('content')
+        @yield('hero section')
+        @yield('content section')
     </main>
 
     <!-- Scripts -->
     @stack('scripts')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.getElementById('navbar');
+            const originalClasses = navbar.className;
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 10) {
+                    // Ketika di-scroll, tambahkan class fixed dan shadow
+                    navbar.className =
+                        'fixed top-0 left-0 right-0 bg-white shadow-md w-full h-20 z-50 transition-all duration-300';
+                } else {
+                    // Kembalikan ke class original ketika di atas
+                    navbar.className = originalClasses;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
