@@ -100,7 +100,6 @@ class FrameController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($frame->image_path) {
                 Storage::disk('public')->delete($frame->image_path);
             }
@@ -120,7 +119,6 @@ class FrameController extends Controller
             return redirect()->route('admin.login');
         }
 
-        // Hapus file gambar dari storage
         if ($frame->image_path) {
             Storage::disk('public')->delete($frame->image_path);
         }

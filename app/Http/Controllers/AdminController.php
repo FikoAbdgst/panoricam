@@ -11,7 +11,6 @@ class AdminController extends Controller
 {
     public function showLoginForm()
     {
-        // Jika sudah login, redirect ke dashboard
         if (Session::has('admin_id')) {
             return redirect('/admin/dashboard');
         }
@@ -26,12 +25,9 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        // Cari admin berdasarkan email
         $admin = Admin::where('email', $request->email)->first();
 
-        // Verifikasi password jika admin ditemukan
         if ($admin && Hash::check($request->password, $admin->password)) {
-            // Simpan data admin di session
             Session::put('admin_id', $admin->id);
             Session::put('admin_name', $admin->name);
             Session::put('admin_email', $admin->email);
@@ -46,7 +42,6 @@ class AdminController extends Controller
 
     public function logout()
     {
-        // Hapus semua data session admin
         Session::forget('admin_id');
         Session::forget('admin_name');
         Session::forget('admin_email');
@@ -54,7 +49,6 @@ class AdminController extends Controller
         return redirect('/admin/login');
     }
 
-    // Fungsi untuk mengecek apakah admin sudah login
     public static function checkAdminLogin()
     {
         return Session::has('admin_id');
