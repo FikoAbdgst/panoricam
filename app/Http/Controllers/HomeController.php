@@ -12,7 +12,6 @@ class HomeController extends Controller
     {
         $categories = Category::all();
 
-        // Check if category filter is applied via query parameter
         if ($request->has('category')) {
             $categoryId = $request->query('category');
             $selectedCategory = Category::find($categoryId);
@@ -23,7 +22,6 @@ class HomeController extends Controller
             }
         }
 
-        // Default: show all frames
         $frames = Frame::all();
         return view('home', compact('categories', 'frames'));
     }
