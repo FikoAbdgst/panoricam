@@ -96,63 +96,15 @@
                     Abadikan momen spesial Anda dengan frame keren dan berbagi dengan teman-teman!
                 </p>
                 <div class="mt-8">
-                    <a href="{{ route('booth') }}"
-                        class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    <button id="scrollToContentBtn"
+                        class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 cursor-pointer">
                         Mulai Sekarang
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('random-boxes');
-            const colors = ['#f5f5f5', '#e0e0e0', '#d0d0d0', '#f8f8f8', '#ebebeb'];
-
-            function getRandomNumber(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-
-            function createRandomBox() {
-                const box = document.createElement('div');
-                const size = getRandomNumber(20, 120);
-                const posX = getRandomNumber(0, container.offsetWidth - size);
-                const posY = getRandomNumber(0, container.offsetHeight - size);
-                const color = colors[getRandomNumber(0, colors.length - 1)];
-
-                box.style.position = 'absolute';
-                box.style.width = `${size}px`;
-                box.style.height = `${size}px`;
-                box.style.left = `${posX}px`;
-                box.style.top = `${posY}px`;
-                box.style.backgroundColor = color;
-                box.style.opacity = '0.08';
-                box.style.borderRadius = '0';
-                box.style.animation = 'fadeInOut 2.5s ease forwards';
-
-                container.appendChild(box);
-
-                setTimeout(() => {
-                    if (box && box.parentNode) {
-                        box.parentNode.removeChild(box);
-                    }
-                }, 2500);
-            }
-
-            setInterval(createRandomBox, 150);
-
-            function createInitialBoxes() {
-                for (let i = 0; i < 16; i++) {
-                    setTimeout(() => {
-                        createRandomBox();
-                    }, i * 100);
-                }
-            }
-
-            createInitialBoxes();
-        });
-    </script>
 
     <style>
         @keyframes fadeInOut {
@@ -371,4 +323,66 @@
         </div>
     </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Random boxes script remains unchanged
+            const container = document.getElementById('random-boxes');
+            const colors = ['#f5f5f5', '#e0e0e0', '#d0d0d0', '#f8f8f8', '#ebebeb'];
+
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function createRandomBox() {
+                const box = document.createElement('div');
+                const size = getRandomNumber(20, 120);
+                const posX = getRandomNumber(0, container.offsetWidth - size);
+                const posY = getRandomNumber(0, container.offsetHeight - size);
+                const color = colors[getRandomNumber(0, colors.length - 1)];
+
+                box.style.position = 'absolute';
+                box.style.width = `${size}px`;
+                box.style.height = `${size}px`;
+                box.style.left = `${posX}px`;
+                box.style.top = `${posY}px`;
+                box.style.backgroundColor = color;
+                box.style.opacity = '0.08';
+                box.style.borderRadius = '0';
+                box.style.animation = 'fadeInOut 2.5s ease forwards';
+
+                container.appendChild(box);
+
+                setTimeout(() => {
+                    if (box && box.parentNode) {
+                        box.parentNode.removeChild(box);
+                    }
+                }, 2500);
+            }
+
+            setInterval(createRandomBox, 150);
+
+            function createInitialBoxes() {
+                for (let i = 0; i < 16; i++) {
+                    setTimeout(() => {
+                        createRandomBox();
+                    }, i * 100);
+                }
+            }
+
+            createInitialBoxes();
+
+            // Add smooth scroll functionality
+            const scrollToContentBtn = document.getElementById('scrollToContentBtn');
+            if (scrollToContentBtn) {
+                scrollToContentBtn.addEventListener('click', function() {
+                    const contentSection = document.querySelector('.py-16.bg-gradient-to-b');
+                    if (contentSection) {
+                        contentSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 @endsection
