@@ -9,10 +9,15 @@ class Frame extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image_path', 'category_id'];
+    protected $fillable = ['name', 'category_id'];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function frameImages()
+    {
+        return $this->hasMany(FrameImage::class);
     }
 }

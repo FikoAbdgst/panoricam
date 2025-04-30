@@ -46,14 +46,20 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Frame Saat Ini</label>
-                        <img src="{{ asset('storage/' . $frame->image_path) }}" alt="{{ $frame->name }}"
-                            class="h-40 w-auto object-contain border border-gray-300 p-2 rounded-md">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Gambar Frame Saat Ini</label>
+                        @if ($frame->image_path)
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $frame->image_path) }}" alt="{{ $frame->name }}"
+                                    class="h-32 w-auto object-contain">
+                            </div>
+                        @else
+                            <p class="text-gray-500 italic mb-2">Tidak ada gambar</p>
+                        @endif
                     </div>
 
                     <div class="mb-4">
-                        <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Ganti Gambar Frame
-                            (opsional)</label>
+                        <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Ganti Gambar
+                            Frame (Opsional)</label>
                         <input type="file" name="image" id="image"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             accept="image/*">
@@ -70,6 +76,96 @@
                         </a>
                     </div>
                 </form>
+            </div>
+
+            <div class="mt-6">
+                <h2 class="text-lg font-semibold mb-3">Frame Images</h2>
+                @if ($frame->frameImages->count() > 0)
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        ID
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Preview
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Jumlah Frame
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Aksi
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($frame->frameImages as $frameImage)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $frameImage->id }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex space-x-2">
+                                                @if ($frameImage->frame1)
+                                                    <img src="{{ asset('storage/' . $frameImage->frame1) }}" alt="Frame 1"
+                                                        class="h-16 w-auto object-contain">
+                                                @endif
+                                                @if ($frameImage->frame2)
+                                                    <img src="{{ asset('storage/' . $frameImage->frame2) }}" alt="Frame 2"
+                                                        class="h-16 w-auto object-contain">
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            @php
+                                                $count = 0;
+                                                if ($frameImage->frame1) {
+                                                    $count++;
+                                                }
+                                                if ($frameImage->frame2) {
+                                                    $count++;
+                                                }
+                                                if ($frameImage->frame3) {
+                                                    $count++;
+                                                }
+                                                if ($frameImage->frame4) {
+                                                    $count++;
+                                                }
+                                            @endphp
+                                            {{ $count }} frame
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <a href="{{ route('admin.frameimages.edit', $frameImage) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                            <a href="{{ route('admin.frameimages.show', $frameImage) }}"
+                                                class="text-blue-600 hover:text-blue-900 mr-3">Detail</a>
+                                            <form action="{{ route('admin.frameimages.destroy', $frameImage) }}"
+                                                method="POST" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus frame image ini?')">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <p class="text-gray-500">Belum ada frame image yang ditambahkan</p>
+                        <a href="{{ route('admin.frameimages.create') }}"
+                            class="mt-3 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            Tambah Frame Image
+                        </a>
+                    </div>
+                @endif
             </div>
         </main>
     </div>
